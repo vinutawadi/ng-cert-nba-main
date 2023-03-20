@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-11" *ngIf="allTeams.length">
+    <app-conference-team [allTeams]="allTeams" [divisions]="divisions"
+      (filteredItemEvent)="selectConference($event)"></app-conference-team>
+    <app-divisions-team [filteredTeams]="allTeams" [divisions]="filteredivisions"
+      (filteredItemEvent)="selectDivision($event)"></app-divisions-team>
+    <select #teamSelect>
+      <option [value]="team.id" *ngFor="let team of filteredTeams">
+        {{team.full_name}}
+      </option>
+    </select>
+    <button class="primary" (click)="trackTeam(teamSelect.value)">Track team</button>
+  </div>
+</div>
+<ng-container *ngIf="showNoOdays">
+  <select [(ngModel)]="noOfDays" (change)="selectDays($event)" >
+    <option [value]="day" *ngFor="let day of days">
+      {{day}}
+    </option>
+  </select>Days
+</ng-container>
+<div class="row">
+  <app-team-stats class="col-sm-4" (daysEvent)="showDays($event)" [noOfDays]="noOfDays" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
+  </app-team-stats>
+</div>
