@@ -1,0 +1,5 @@
+<select [(ngModel)]="resultDays" (change)="selectDays($event)" >
+    <option [value]="day" *ngFor="let day of days">
+      {{day}}
+    </option>
+  </select>{{constant.DAYS}}

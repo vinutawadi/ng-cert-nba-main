@@ -1,5 +1,6 @@
-<select (change)="selectDivision($event)" >
-    <option [value]="team.id" [disabled]="team.division === 'Select Division'" [selected]="team.division === 'Select Division'" *ngFor="let team of divisions">
+<select (change)="selectDivision($event)">
+    <option [value]="team.id" [disabled]="team.division === 'Select Division'"
+        [selected]="team.division === 'Select Division'" *ngFor="let team of divisions">
         {{team.division}}
     </option>
 </select>

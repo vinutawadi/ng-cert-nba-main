@@ -20,6 +20,7 @@ export interface Team {
   division: string;
   full_name: string;
   name: string;
+  modalId: number;
 }
 
 export interface Stats {

@@ -1,3 +1,4 @@
+<app-loader *ngIf="loader"></app-loader>
 <div class="row">
   <div class="col-sm-11" *ngIf="allTeams.length">
     <app-conference-team [allTeams]="allTeams" [divisions]="divisions"
@@ -13,13 +14,10 @@
   </div>
 </div>
 <ng-container *ngIf="showNoOdays">
-  <select [(ngModel)]="noOfDays" (change)="selectDays($event)" >
-    <option [value]="day" *ngFor="let day of days">
-      {{day}}
-    </option>
-  </select>Days
+  <app-result-days (resultDays)="showDays($event)"></app-result-days>
 </ng-container>
 <div class="row">
-  <app-team-stats class="col-sm-4" (daysEvent)="showDays($event)" [noOfDays]="noOfDays" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
+  <app-team-stats class="col-sm-4" (teamData)="showDays($event)" 
+    *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
   </app-team-stats>
 </div>

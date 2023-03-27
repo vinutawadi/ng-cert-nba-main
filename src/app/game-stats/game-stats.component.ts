@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../data.models';
 import { NbaService } from '../nba.service';
@@ -14,19 +15,24 @@ export class GameStatsComponent implements OnInit {
   allTeams: Team[] = [];
   divisions: Team[] = [];
   filteredivisions: Team[] = [];
-  days: Array<number> = [6,12,20];
-  noOfDays: number = 6;
   showNoOdays: boolean = false;
+  resultDays: number = 6;
+  loader: boolean = false;
   constructor(protected nbaService: NbaService) { }
 
   ngOnInit(): void {
+    this.loader = true;
     this.nbaService.getAllTeams().subscribe(data => {
+      this.loader = false;
       this.allTeams = data
       this.filteredTeams = this.allTeams;
       const filteredDivisions = filterDivisionData(this.allTeams);
       this.divisions = [{id: 'default', division:  'Select Division'},...filteredDivisions]
       this.filteredivisions = this.divisions;
-    })
+    });
+    this.nbaService.currentResultDays.subscribe(msg =>{
+      this.resultDays = msg;
+    });
   }
 
   trackTeam(teamId: string): void {
@@ -38,7 +44,6 @@ export class GameStatsComponent implements OnInit {
 
   showDays(event: any) {
     this.showNoOdays = true;
-    this.noOfDays = event.noOfDays;
   }
 
   selectConference(event: any) {
@@ -49,7 +54,5 @@ export class GameStatsComponent implements OnInit {
     this.filteredTeams = event;
   }
   
-  selectDays(event: any) {
-    this.noOfDays = Number(event.target.value);
-  }
+ 
 }

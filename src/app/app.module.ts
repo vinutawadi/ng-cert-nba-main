@@ -11,7 +11,10 @@ import { GameStatsComponent } from './game-stats/game-stats.component';
 import { ConferenceTeamComponent } from './conference-team/conference-team.component';
 import { DeleteModalBoxComponent } from './delete-modal-box/delete-modal-box.component';
 import { DivisionsTeamComponent } from './divisions-team/divisions-team.component';
-import { ModalService } from './delete-modal-box/modal.service'
+import { ModalService } from './delete-modal-box/modal.service';
+import { ButtonsComponent } from './buttons/buttons.component';
+import { LoaderComponent } from './loader/loader.component';
+import { ResultDaysComponent } from './result-days/result-days.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { ModalService } from './delete-modal-box/modal.service'
     GameStatsComponent,
     ConferenceTeamComponent,
     DeleteModalBoxComponent,
-    DivisionsTeamComponent
+    DivisionsTeamComponent,
+    ButtonsComponent,
+    LoaderComponent,
+    ResultDaysComponent
   ],
   imports: [
     BrowserModule,
