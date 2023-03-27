@@ -1,6 +1,9 @@
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {  filteredTeamsByConference } from '../data.helper';
 import { Team } from '../data.models';
+import *as constant from '../constant'
+
 
 @Component({
   selector: 'app-conference-team',
@@ -11,6 +14,7 @@ export class ConferenceTeamComponent {
   @Input() allTeams: Team[] = [];
   @Input() divisions: Team[] = [];
   @Output() filteredItemEvent = new EventEmitter<{}>();
+  readonly constant = constant
   selectConference(event: any) {
     const teamsData = this.allTeams;
     const divisionsData = this.filterDivision(event);

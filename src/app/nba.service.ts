@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { format, subDays } from 'date-fns';
 import {Game, Stats, Team} from './data.models';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,22 @@ export class NbaService {
     'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'};
   private API_URL = "https://free-nba.p.rapidapi.com";
   trackedTeams: Team[] = [];
+  private resultDays = new BehaviorSubject(6);
+ currentResultDays = this.resultDays.asObservable();
 
   constructor(private http: HttpClient) { }
 
   addTrackedTeam(team: Team): void {
+    const modalId = this.trackedTeams.length + 1;
+    team = { ...team, modalId: modalId};
     this.trackedTeams.push(team);
   }
 
   removeTrackedTeam(team: Team): void {
-    let index = this.trackedTeams.findIndex(t => t.id == team.id);
+    let index = this.trackedTeams.findIndex(t => t.modalId == team.modalId);
     this.trackedTeams.splice(index, 1);
   }
+  
 
   getTrackedTeams(): Team[] {
     return this.trackedTeams;
@@ -89,4 +95,8 @@ export class NbaService {
     }
     return stats;
   }
+
+  updateDays(message: number) {
+    this.resultDays.next(message)
+    }
 }

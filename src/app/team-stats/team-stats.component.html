@@ -1,8 +1,8 @@
+<app-loader *ngIf="loader"></app-loader>
 <div class="card" *ngIf="games$ | async as games">
   <div>
     <h3>{{team.full_name}} [{{team.abbreviation}}] 
-      <!-- <span (click)="nbaService.removeTrackedTeam(team)">&times;</span> -->
-      <span (click)="openModal(team.id)">&times;</span>
+      <span (click)="openModal(team.modalId)">&times;</span>
     </h3>
     <h6>{{team.conference}}ern conference</h6>
   </div>
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-sm-6">
         <p>
-          Results of past {{noOfDays}} days:
+          Results of past {{resultDays}} days:
         </p>
         <p>
           <mark class="tag" *ngFor="let result of stats.lastGames" [class]="result">{{result}}</mark>
@@ -26,10 +26,15 @@
     </div>
   </div>
   <div>
-    <button class="tertiary" [state]="{days: noOfDays}"  [routerLink]=" 'results/'+ team.abbreviation">See game results >></button>
+    <button class="tertiary" [routerLink]=" 'results/'+ team.abbreviation">See game results >></button>
   </div>
 
 </div>
 <ng-container *ngIf="opneModal">
-<app-delete-modal-box [id]="team.id" (deleteTeamEvent)="nbaService.removeTrackedTeam(team)"></app-delete-modal-box>
+<app-delete-modal-box [id]="team.modalId" [closeTeam]="close">
+  {{constant.REMOVE}}
+  <app-buttons deleteBtn (btnClick)="deleteTeam($event,team)" text="CLICK ME" [isDisabled]="false">
+    <!-- we can add the buttons here and make it resuable as well by adding content-projection to buttons component -->
+  </app-buttons>
+</app-delete-modal-box>
 </ng-container>
