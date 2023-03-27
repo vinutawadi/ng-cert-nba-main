@@ -1,6 +1,5 @@
-
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../data.models';
+import { FilteredConfTeams, FilteredDivisionTeams, Team } from '../data.models';
 import { NbaService } from '../nba.service';
 import { filterDivisionData } from '../data.helper';
 
@@ -22,15 +21,22 @@ export class GameStatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader = true;
-    this.nbaService.getAllTeams().subscribe(data => {
+    this.nbaService.getAllTeams().subscribe((data: Team[]) => {
       this.loader = false;
       this.allTeams = data
       this.filteredTeams = this.allTeams;
       const filteredDivisions = filterDivisionData(this.allTeams);
-      this.divisions = [{id: 'default', division:  'Select Division'},...filteredDivisions]
+      this.divisions = [{
+        id: -1, division: 'Select Division', city: '',
+        conference: '',
+        full_name: '',
+        name: '',
+        modalId: -1,
+        abbreviation: ''
+      }, ...filteredDivisions]
       this.filteredivisions = this.divisions;
     });
-    this.nbaService.currentResultDays.subscribe(msg =>{
+    this.nbaService.currentResultDays.subscribe((msg: number) => {
       this.resultDays = msg;
     });
   }
@@ -42,17 +48,18 @@ export class GameStatsComponent implements OnInit {
     }
   }
 
-  showDays(event: any) {
+  showDays() {
     this.showNoOdays = true;
   }
 
-  selectConference(event: any) {
-    this.filteredTeams = event.filteredTeams;
+ 
+  selectConference(event: FilteredConfTeams) {
+    this.filteredTeams = event?.filteredTeams;
     this.filteredivisions = event.divisionsData;
   }
-  selectDivision(event: any) {
-    this.filteredTeams = event;
+  selectDivision(event: FilteredDivisionTeams) {
+    this.filteredTeams = event.teams;
   }
-  
- 
+
+
 }

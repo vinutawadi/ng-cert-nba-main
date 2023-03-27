@@ -50,10 +50,10 @@ export class TeamStatsComponent implements OnInit {
     this.modalService.open(id);
   }
 
-  deleteTeam(event: any, element: any) {
+  deleteTeam(event: string, element: Team) {
     if (event === 'yes') {
       this.nbaService.removeTrackedTeam(element);
-      this.modalService.close(element);
+      this.modalService.close(element.modalId);
     } else {
       this.close = true;
 

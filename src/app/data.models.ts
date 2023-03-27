@@ -31,4 +31,21 @@ export interface Stats {
   lastGames: Result[];
 }
 
+export interface HtmlInputEvent {
+  target : EventTarget | null  
+  
+} 
+
+
+export interface FilteredDivisionTeams  {
+  teams: Team[];
+}
+
+export interface FilteredConfTeams  {
+  filteredTeams: Team[];
+  divisionsData: Team[]
+}
+
+
+
 export type Result = 'W' | 'L';

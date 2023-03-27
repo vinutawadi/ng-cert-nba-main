@@ -1,7 +1,6 @@
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {  filteredTeamsByDivision } from '../data.helper';
-import { Team } from '../data.models';
+import { HtmlInputEvent, Team } from '../data.models';
 
 @Component({
   selector: 'app-divisions-team',
@@ -11,11 +10,11 @@ import { Team } from '../data.models';
 export class DivisionsTeamComponent {
   @Input() filteredTeams: Team[] = [];
   @Input() divisions: Team[] = [];
-  @Output() filteredItemEvent = new EventEmitter<Team[]>();
+  @Output() filteredItemEvent = new EventEmitter<{teams: Team[]}>();
 
-  selectDivision(event: any) {
-    const teams = filteredTeamsByDivision(this.filteredTeams,this.divisions, event.target.value);
-    this.filteredItemEvent.emit(teams);
+  selectDivision(event: HtmlInputEvent) {
+    const teams = filteredTeamsByDivision(this.filteredTeams,this.divisions, (event?.target as HTMLTextAreaElement).value);
+    this.filteredItemEvent.emit({teams: teams});
   }
 
 }

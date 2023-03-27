@@ -1,4 +1,4 @@
-@angular/common
+-@angular/common
 MIT
 
 @angular/core

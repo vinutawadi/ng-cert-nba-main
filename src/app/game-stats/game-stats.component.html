@@ -14,10 +14,10 @@
   </div>
 </div>
 <ng-container *ngIf="showNoOdays">
-  <app-result-days (resultDays)="showDays($event)"></app-result-days>
+  <app-result-days (resultDays)="showDays()"></app-result-days>
 </ng-container>
 <div class="row">
-  <app-team-stats class="col-sm-4" (teamData)="showDays($event)" 
+  <app-team-stats class="col-sm-4" (teamData)="showDays()" 
     *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
   </app-team-stats>
 </div>

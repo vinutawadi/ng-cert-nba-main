@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy, SimpleChanges } from '@angular/core';
+import { HtmlInputEvent } from '../data.models';
 
 import { ModalService } from './modal.service';
 
@@ -23,8 +24,8 @@ export class DeleteModalBoxComponent implements OnInit, OnDestroy {
       return;
     }
     document.body.appendChild(this.element);
-    this.element.addEventListener('click', (el: any) => {
-      if (el.target.className === 'jw-modal') {
+    this.element.addEventListener('click', (el: HtmlInputEvent) => {
+      if ((el.target as HTMLTextAreaElement).className === 'jw-modal') {
         this.close();
       }
     });

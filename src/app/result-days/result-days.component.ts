@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NbaService } from '../nba.service';
 import *as constant from '../constant'
+import { HtmlInputEvent } from '../data.models';
 
 @Component({
   selector: 'app-result-days',
@@ -16,10 +17,10 @@ export class ResultDaysComponent implements OnInit {
   constructor(protected nbaService: NbaService){}
 
   ngOnInit() {
-    this.nbaService.currentResultDays.subscribe(msg => this.resultDays = msg);
+    this.nbaService.currentResultDays.subscribe((msg: number) => this.resultDays = msg);
   }
 
-  selectDays(event: any) {
-    this.nbaService.updateDays(Number(event.target.value))
+  selectDays(event: HtmlInputEvent) {
+    this.nbaService.updateDays(Number((event?.target as HTMLTextAreaElement).value))
   }
 }

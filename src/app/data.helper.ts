@@ -1,17 +1,17 @@
-import { Team } from "./data.models";
+import { HtmlInputEvent, Team } from "./data.models";
 
 export function filterDivisionData(teams: Team[]) {
-  return teams.reduce((list: any, valu: Team) => {
-    if (!list.find((data: any) => data.division === valu.division)) {
+  return teams.reduce((list: Array<Team>, valu: Team) => {
+    if (!list.find((data: Team) => data.division === valu.division)) {
       list.push(valu);
     }
     return list;
   }, [])
 
 }
-export function filteredTeamsByConference(teams: Team[], event: any) {
+export function filteredTeamsByConference(teams: Team[], event: HtmlInputEvent) {
   let data = [];
-  switch (event?.target?.value) {
+  switch ((event.target as HTMLTextAreaElement).value) {
     case "West": {
       data = teams.filter(data => data.conference === 'West')
       break;
@@ -30,7 +30,7 @@ export function filteredTeamsByConference(teams: Team[], event: any) {
 
 export function filteredTeamsByDivision(teams: Team[], divisions: Team[], value: string) {
   let list = [];
-  const divisionValue = divisions.filter((data: any) => data.id === Number(value));
-  list = teams.filter((data: any) => data.division === divisionValue[0].division);
+  const divisionValue = divisions.filter((data: Team) => data.id === Number(value));
+  list = teams.filter((data: Team) => data.division === divisionValue[0].division);
   return list
 }
